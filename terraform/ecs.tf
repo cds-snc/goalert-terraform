@@ -177,3 +177,5 @@ output "alb_dns_name" {
   description = "ALB DNS name — direct access before CloudFront is configured"
   value       = aws_lb.goalert.dns_name
 }
+
+

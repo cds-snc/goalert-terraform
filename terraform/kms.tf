@@ -1,6 +1,3 @@
-# KMS key disabled for test environment
-# Uncomment for production use
-
 # data "aws_caller_identity" "current" {}
 
 # resource "aws_kms_key" "goalert_ssm" {

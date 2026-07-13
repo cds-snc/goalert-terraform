@@ -49,3 +49,4 @@ output "db_endpoint" {
   description = "Aurora cluster writer endpoint — used in the GoAlert DB URL"
   value       = aws_rds_cluster.goalert.endpoint
 }
+

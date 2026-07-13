@@ -1,5 +1,3 @@
-# ── ECS Task Execution Role (ECR pull + CloudWatch logs) ─────────────────────
-
 data "aws_iam_policy_document" "ecs_assume" {
   statement {
     effect  = "Allow"
@@ -22,8 +20,6 @@ resource "aws_iam_role_policy_attachment" "goalert_task_execution_policy" {
   role       = aws_iam_role.goalert_task_execution.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
-
-# ── ECS Task Role (permissions granted to the running container) ──────────────
 
 resource "aws_iam_role" "goalert_task" {
   name               = "goalert-task-${var.env}"
