@@ -1,6 +1,3 @@
-# SSM parameters disabled for test environment — secrets inlined in Lambda env vars
-# Uncomment for production use alongside kms.tf
-
 # resource "aws_ssm_parameter" "goalert_db_url" {
 #   name   = "/goalert/${var.env}/db_url"
 #   type   = "SecureString"
@@ -24,3 +21,5 @@
 # output "ssm_encryption_key_arn" {
 #   value = aws_ssm_parameter.goalert_encryption_key.arn
 # }
+
+

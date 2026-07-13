@@ -70,3 +70,5 @@ output "goalert_cloudfront_url" {
   description = "CloudFront URL for GoAlert — set as GOALERT_PUBLIC_URL after first apply"
   value       = "https://${aws_cloudfront_distribution.goalert.domain_name}"
 }
+
+

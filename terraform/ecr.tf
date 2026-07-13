@@ -44,3 +44,5 @@ output "ecr_repository_url" {
   description = "Push the GoAlert image here before creating the Lambda"
   value       = aws_ecr_repository.goalert.repository_url
 }
+
+
