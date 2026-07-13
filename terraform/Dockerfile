@@ -1,0 +1,5 @@
+FROM goalert/goalert:v0.34.1
+
+ENV GOALERT_LISTEN=":8081"
+ENV GOALERT_LOG_FORMAT=json
+
