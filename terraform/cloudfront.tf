@@ -5,13 +5,13 @@ resource "aws_cloudfront_distribution" "goalert" {
   price_class     = "PriceClass_100"
 
   origin {
-    domain_name = trimsuffix(trimprefix(aws_lambda_function_url.goalert.function_url, "https://"), "/")
-    origin_id   = "goalert-lambda"
+    domain_name = aws_lb.goalert.dns_name
+    origin_id   = "goalert-alb"
 
     custom_origin_config {
       http_port              = 80
       https_port             = 443
-      origin_protocol_policy = "https-only"
+      origin_protocol_policy = "http-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
   }
@@ -20,7 +20,7 @@ resource "aws_cloudfront_distribution" "goalert" {
     path_pattern           = "/static/*"
     allowed_methods        = ["GET", "HEAD", "OPTIONS"]
     cached_methods         = ["GET", "HEAD"]
-    target_origin_id       = "goalert-lambda"
+    target_origin_id       = "goalert-alb"
     compress               = true
     viewer_protocol_policy = "redirect-to-https"
 
@@ -37,7 +37,7 @@ resource "aws_cloudfront_distribution" "goalert" {
   default_cache_behavior {
     allowed_methods        = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods         = ["GET", "HEAD"]
-    target_origin_id       = "goalert-lambda"
+    target_origin_id       = "goalert-alb"
     compress               = true
     viewer_protocol_policy = "redirect-to-https"
 
@@ -65,14 +65,6 @@ resource "aws_cloudfront_distribution" "goalert" {
   tags = local.common_tags
 }
 
-
-resource "aws_lambda_permission" "cloudfront" {
-  statement_id  = "AllowCloudFrontInvoke"
-  action        = "lambda:InvokeFunctionUrl"
-  function_name = aws_lambda_function.goalert.function_name
-  principal     = "cloudfront.amazonaws.com"
-  source_arn    = aws_cloudfront_distribution.goalert.arn
-}
 
 output "goalert_cloudfront_url" {
   description = "CloudFront URL for GoAlert — set as GOALERT_PUBLIC_URL after first apply"
